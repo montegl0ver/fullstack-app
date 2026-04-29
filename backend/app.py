@@ -39,5 +39,4 @@ def add_task():
     return jsonify({"id": new_task.id, "title": new_task.title}), 201
 
 if __name__ == '__main__':
-    # Порт 5000 стандартный, но Railway может назначить свой через переменную PORT
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8080)))

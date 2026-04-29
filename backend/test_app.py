@@ -1,4 +1,4 @@
-import pytest
+kimport pytest
 from app import app, db
 
 @pytest.fixture
@@ -10,6 +10,6 @@ def client():
             db.create_all()
         yield client
 
-def test_get_tasks(client):
+def test_api(client):
     res = client.get('/api/tasks')
     assert res.status_code == 200
