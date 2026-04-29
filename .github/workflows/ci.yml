@@ -1,16 +1,21 @@
 name: CI
-on: [push]
+on:
+  push:
+    [cite_start]branches: [main] # [cite: 216]
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  test-backend:
+    [cite_start]runs-on: ubuntu-latest # [cite: 219]
     steps:
-      - uses: actions/checkout@v3
+      - [cite_start]uses: actions/checkout@v3 # [cite: 221]
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Run
+      - name: Install dependencies
         run: |
-          cd backend
-          pip install -r requirements.txt
-          python -m pytest
+          cd backend # Важно зайти в папку [cite: 224]
+          pip install -r requirements.txt # [cite: 225]
+      - name: Run tests
+        run: |
+          cd backend # Важно зайти в папку [cite: 228]
+          python -m pytest # [cite: 229]
