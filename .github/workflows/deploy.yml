@@ -1,0 +1,37 @@
+name: Deploy Full-Stack App to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to DigitalOcean via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+           
+            mkdir -p ~/fullstack-app
+            cd ~/fullstack-app
+            
+            
+            if [ -d ".git" ]; then
+              git pull origin main
+            else
+              rm -rf * .[!.]*
+              git clone https://github.com/montegl0ver/fullstack-app.git .
+            fi
+            
+      
+            docker-compose down
+            docker-compose up --build -d
