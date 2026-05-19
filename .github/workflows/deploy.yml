@@ -3,7 +3,7 @@ name: Deploy Full-Stack App to DigitalOcean
 on:
   push:
     branches:
-      - main  
+      - main  # Если твоя ветка называется master, замени main на master
 
 jobs:
   deploy:
@@ -23,7 +23,7 @@ jobs:
             mkdir -p ~/fullstack-app
             cd ~/fullstack-app
             
-            
+            # Проверяем репозиторий и обновляем код
             if [ -d ".git" ]; then
               git pull origin main
             else
@@ -31,6 +31,9 @@ jobs:
               git clone https://github.com/montegl0ver/fullstack-app.git .
             fi
             
+            # Жесткая очистка конфликтующих контейнеров
+            docker-compose down --remove-orphans || true
+            docker rm -f fullstack-app_nginx_1 || true
             
-            docker-compose down
+            # Чистая сборка и запуск бэкенда, фронтенда и Nginx
             docker-compose up --build -d
