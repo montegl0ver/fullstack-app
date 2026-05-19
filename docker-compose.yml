@@ -4,7 +4,7 @@ services:
   nginx:
     build: ./nginx
     ports:
-      - "80:80"  
+      - "80:80"
     restart: always
     depends_on:
       - frontend
@@ -13,10 +13,11 @@ services:
   backend:
     build: ./backend
     expose:
-      - "5000"  
+      - "5000"
+    restart: always
 
   frontend:
     build: ./frontend
     expose:
-      - "80"    
+      - "80"
     restart: always
