@@ -3,7 +3,7 @@ name: Deploy Full-Stack App to DigitalOcean
 on:
   push:
     branches:
-      - main
+      - main  
 
 jobs:
   deploy:
@@ -20,7 +20,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-           
             mkdir -p ~/fullstack-app
             cd ~/fullstack-app
             
@@ -32,6 +31,6 @@ jobs:
               git clone https://github.com/montegl0ver/fullstack-app.git .
             fi
             
-      
+            
             docker-compose down
             docker-compose up --build -d
